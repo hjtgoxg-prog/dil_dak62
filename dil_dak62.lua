@@ -1,3 +1,23 @@
+local KEY_URL = "https://raw.githubusercontent.com/hjtgoxg-prog/dil_dak62/main/keys.txt"
+
+local function checkKey(key)
+    local ok, data = pcall(function()
+        return game:HttpGet(KEY_URL)
+    end)
+
+    if not ok then
+        return false
+    end
+
+    for savedKey in string.gmatch(data, "[^\r\n]+") do
+        savedKey = savedKey:gsub("^%s*(.-)%s*$", "%1")
+        if key == savedKey then
+            return true
+        end
+    end
+
+    return false
+end
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
